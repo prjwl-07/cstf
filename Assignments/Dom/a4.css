@@ -1,0 +1,56 @@
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #a2a2e4;
+}
+
+.regFormDiv{
+    border: 1px solid black;
+    padding: 3rem;
+    border-radius: 2rem;
+    width: 20rem;
+    /* display: flex; */
+    /* justify-content: center; */
+    background-color:white;
+}
+
+.form-group{
+    padding: 2%;
+}
+
+.form-group label, small, input, select{
+    font-size: large;
+    display: block;
+}
+
+.form-group input, select{
+    margin-top: 2%;
+    height: 2rem;
+    width: 100%;
+}
+
+
+.error{
+    color: red;
+}
+
+button{
+    background-color: #7272d0;
+    border-radius: 1em;
+    height: 3rem;
+    width: 100%;
+    margin-top: 2%;
+}
+
+.success{
+    color: green;
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+
+
+
+

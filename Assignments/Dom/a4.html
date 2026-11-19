@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="a4.css">
+    <script src="a4.js" defer></script>
+    <title>a4</title>
+</head>
+<body>
+    <div class="regFormDiv">
+        <h1>Register</h1>
+        <form id="regForm" class="regForm" novalidate>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" placeholder="Enter Name" id="username">
+                <small class="error" id="nameError"></small>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" placeholder="Enter Email" id="email">
+                <small class="error" id="emailError"></small>
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" placeholder="Enter Age" id="age">
+                <small class="error" id="ageError"></small>
+            </div>
+            <div class="form-group">
+                <label for="Password">Password:</label>
+                <input type="Password" placeholder="Enter Password" id="password">
+                <small class="error" id="passwordError"></small>
+            </div>
+            <div class="form-group">
+                <label for="Gender">Gender:</label>
+                <select name="gender" id="gender">
+                    <option value="">Not Selected</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+                <small class="error" id="genderError"></small>
+            </div>
+            <button>Register</button>
+        </form>
+
+        <small class="success" id="success"></small>
+    </div>
+    
+</body>
+</html>

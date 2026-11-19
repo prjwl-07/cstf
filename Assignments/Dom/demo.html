@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #999;
+            border-radius: 4px;
+        }
+
+        /* Highlight invalid inputs via DOM class */
+        input.invalid {
+            border-color: red;
+            background-color: #fff6f6;
+        }
+
+        /* Error message styling */
+        .error {
+            color: red;
+            font-size: 0.85em;
+            display: block;
+            margin-top: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>User Registration</h2>
+
+    <!-- 'novalidate' disables browser popups so our JS DOM messages show instead -->
+    <form id="regForm" novalidate>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username">
+            <small class="error" id="usernameError"></small>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email">
+            <small class="error" id="emailError"></small>
+        </div>
+
+        <div class="form-group">
+            <label for="age">Age:</label>
+            <input type="number" id="age">
+            <small class="error" id="ageError"></small>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password">
+            <small class="error" id="passwordError"></small>
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword">
+            <small class="error" id="confirmError"></small>
+        </div>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <!-- Dynamic Success Message -->
+    <p id="successMsg" style="color: green; font-weight: bold; margin-top: 15px;"></p>
+
+    <script>
+        // 1. Select the form from the DOM
+        const form = document.getElementById("regForm");
+
+        // Helper function to update DOM error messages & border styles
+        function setError(inputId, errorId, message) {
+            const inputElement = document.getElementById(inputId);
+            const errorElement = document.getElementById(errorId);
+
+            errorElement.textContent = message; // Inject error text
+
+            if (message !== "") {
+                inputElement.classList.add("invalid");    // Add red border
+            } else {
+                inputElement.classList.remove("invalid"); // Remove red border
+            }
+        }
+
+        // 2. Listen for form submit event
+        form.addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default page reload
+            let isValid = true;
+            document.getElementById("successMsg").textContent = "";
+
+            // 3. Read current values from DOM inputs
+            const username = document.getElementById("username").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const age = document.getElementById("age").value.trim();
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            // Validate Username (at least 4 characters)
+            if (username.length < 4) {
+                setError("username", "usernameError", "Username must be at least 4 characters.");
+                isValid = false;
+            } else {
+                setError("username", "usernameError", "");
+            }
+
+            // Validate Email (basic regex check)
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                setError("email", "emailError", "Enter a valid email address (e.g., user@mail.com).");
+                isValid = false;
+            } else {
+                setError("email", "emailError", "");
+            }
+
+            // Validate Age (between 18 and 100)
+            if (age === "" || isNaN(age) || age < 18 || age > 100) {
+                setError("age", "ageError", "Age must be a number between 18 and 100.");
+                isValid = false;
+            } else {
+                setError("age", "ageError", "");
+            }
+
+            // Validate Password (minimum 6 characters)
+            if (password.length < 6) {
+                setError("password", "passwordError", "Password must be at least 6 characters.");
+                isValid = false;
+            } else {
+                setError("password", "passwordError", "");
+            }
+
+            // Validate Confirm Password (must match password)
+            if (confirmPassword === "" || confirmPassword !== password) {
+                setError("confirmPassword", "confirmError", "Passwords do not match.");
+                isValid = false;
+            } else {
+                setError("confirmPassword", "confirmError", "");
+            }
+
+            // 4. If all checks pass, update DOM with success message
+            if (isValid) {
+                document.getElementById("successMsg").textContent = "Registration successful!";
+                form.reset(); // Clears all form fields
+            }
+        });
+    </script>
+
+</body>
+
+</html>
